@@ -41,16 +41,15 @@ class GA_Parse
   }
 
   function ParseCookies(){
-
   // Parse __utmz cookie
   list($domain_hash,$timestamp, $session_number, $campaign_numer, $campaign_data) = preg_split('[\.]', $_COOKIE["__utmz"],5);
 
   // Parse the campaign data
   $campaign_data = parse_str(strtr($campaign_data, "|", "&"));
 
-  $this->campaign_source = $utmcsr;
-  $this->campaign_name = $utmccn;
-  $this->campaign_medium = $utmcmd;
+  $this->campaign_source = isset($utmcsr) ? $utmcsr : null;
+  $this->campaign_name = isset($utmccn) ? $utmccn : null;
+  $this->campaign_medium = isset($utmcmd) ? $utmcmd : null;
   if (isset($utmctr)) $this->campaign_term = $utmctr;
   if (isset($utmcct)) $this->campaign_content = $utmcct;
 
