@@ -19,7 +19,7 @@ __utmz - Expires 6 months from set/update.  Stores campaign attribution informat
 ```php
     <?php
     
-    $tracker = new \GoogleAnalytics\CampaignTracker\Tracker($_COOKIE);
+    $tracker = new \GoogleAnalytics\CampaignTracking\Tracker($_COOKIE);
     
     echo $tracker->getCampaignMedium() . "\n";
     echo $tracker->getCampaignSource() . "\n";
