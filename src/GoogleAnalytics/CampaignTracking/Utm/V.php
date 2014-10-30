@@ -9,7 +9,8 @@ use GoogleAnalytics\CampaignTracking\CustomVar;
  *
  * The __utmv cookie stores CustomVars.
  */
-class V {
+class V
+{
 
     private $domain_hash;
 
@@ -17,34 +18,47 @@ class V {
 
     private $is_valid;
 
-    public function __construct($__utmv) {
+    public function __construct($__utmv)
+    {
         $this->is_valid = false;
         $this->parse($__utmv);
     }
 
-    public function parse($__utmv) {
+    public function parse($__utmv)
+    {
         $this->custom_vars = array();
 
-        if(!$this->validate($__utmv))
+        if (!$this->validate($__utmv)) {
             return;
+        }
 
         $this->is_valid = true;
 
-        list($this->domain_hash, $custom_var_string) = preg_split('[\|]', $__utmv);
+        list($this->domain_hash, $custom_var_string) = preg_split(
+            '[\|]',
+            $__utmv
+        );
 
-        $custom_vars = array_map(function($v) { return preg_split('[\=]', $v); }, preg_split('[\^]', $custom_var_string));
+        $custom_vars = array_map(
+            function ($v) {
+                return preg_split('[\=]', $v);
+            },
+            preg_split('[\^]', $custom_var_string)
+        );
 
-        foreach($custom_vars as $custom_var) {
+        foreach ($custom_vars as $custom_var) {
             $this->custom_vars[] = new CustomVar($custom_var);
         }
 
     }
 
-    public function isValid() {
+    public function isValid()
+    {
         return $this->isValid();
     }
 
-    public function validate($__utmv) {
+    public function validate($__utmv)
+    {
         return preg_match('/^\d+\.\|+(\d=\S+=\S+=\d\^*)/', $__utmv);
     }
 
@@ -54,7 +68,8 @@ class V {
      *
      * @param string $domain_hash
      */
-    public function setDomainHash($domain_hash) {
+    public function setDomainHash($domain_hash)
+    {
         $this->domain_hash = $domain_hash;
     }
 
@@ -64,14 +79,16 @@ class V {
      *
      * @return string $domain_hash
      */
-    public function getDomainHash() {
+    public function getDomainHash()
+    {
         return $this->domain_hash;
     }
 
     /**
      * @return array $custom_vars
      */
-    public function getCustomVars() {
+    public function getCustomVars()
+    {
         return $this->custom_vars;
     }
 

@@ -1,0 +1,16 @@
+{
+    "name": "joshuataylor/ga-cookie-parser",
+    "type": "library",
+    "description": "PHP class to parse Google Analytics Cookies",
+    "homepage": "https://github.com/joshuataylor/Google-Analytics-PHP-cookie-parser",
+    "license": "MIT",
+    "authors": {
+      "name": "Roger Webb",
+      "name": "Josh Taylor"
+    },
+    "autoload": {
+        "psr-4": {
+          "GoogleAnalytics\\CampaignTracking\\": "src/GoogleAnalytics/CampaignTracking"
+        }
+    }
+}

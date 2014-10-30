@@ -8,7 +8,8 @@ use GoogleAnalytics\CampaignTracking\Utm;
  * This class presents a unified interface to all of the UTM cookies.
  *
  */
-class Tracker {
+class Tracker
+{
 
     private $utma;
 
@@ -26,39 +27,47 @@ class Tracker {
      * a) $_COOKIE - Normal usage.  The cookie superglobal contains the cookies
      *               set by Google Analytics.
      *
-     * b) $_REQUEST ($_GET) - If _getLinkerUrl() is used, the UTM cookies will 
+     * b) $_REQUEST ($_GET) - If _getLinkerUrl() is used, the UTM cookies will
      *               embedded in the query string.
      *
      * @param array $utm Array of UTM parameters (__utm[a, b, c, z and maybe v)
      */
-    public function __construct(array $utm) {
-        if(array_key_exists('__utma', $utm))
+    public function __construct(array $utm)
+    {
+        if (array_key_exists('__utma', $utm)) {
             $this->parseUtmA($utm['__utma']);
+        }
 
-        if(array_key_exists('__utmb', $utm))
+        if (array_key_exists('__utmb', $utm)) {
             $this->parseUtmB($utm['__utmb']);
+        }
 
-        if(array_key_exists('__utmc', $utm))
+        if (array_key_exists('__utmc', $utm)) {
             $this->parseUtmC($utm['__utmc']);
+        }
 
-        if(array_key_exists('__utmv', $utm))
+        if (array_key_exists('__utmv', $utm)) {
             $this->parseUtmV($utm['__utmv']);
+        }
 
-        if(array_key_exists('__utmz', $utm))
+        if (array_key_exists('__utmz', $utm)) {
             $this->parseUtmZ($utm['__utmz']);
+        }
     }
 
     /**
      * @param Utm\A $utma
      */
-    public function setUtmA(Utm\A $utma = null) {
+    public function setUtmA(Utm\A $utma = null)
+    {
         $this->utma = $utma;
     }
 
     /**
      * @return Utm\A $utma
      */
-    public function getUtmA() {
+    public function getUtmA()
+    {
         return $this->utma;
     }
 
@@ -67,21 +76,24 @@ class Tracker {
      *
      * @param string $__utma
      */
-    public function parseUtmA($__utma) {
+    public function parseUtmA($__utma)
+    {
         $this->setUtmA(new Utm\A($__utma));
     }
 
     /**
      * @param Utm\B $utmb
      */
-    public function setUtmB(Utm\B $utmb = null) {
+    public function setUtmB(Utm\B $utmb = null)
+    {
         $this->utmb = $utmb;
     }
 
     /**
      * @return Utm\B $utmb
      */
-    public function getUtmB() {
+    public function getUtmB()
+    {
         return $this->utmb;
     }
 
@@ -90,21 +102,24 @@ class Tracker {
      *
      * @param string $__utmb
      */
-    public function parseUtmB($__utmb) {
+    public function parseUtmB($__utmb)
+    {
         $this->setUtmB(new Utm\B($__utmb));
     }
 
     /**
      * @param Utm\C $utmc
      */
-    public function setUtmC(Utm\C $utmc) {
+    public function setUtmC(Utm\C $utmc)
+    {
         $this->utmc = $utmc;
     }
 
     /**
      * @return Utm\C $utmc
      */
-    public function getUtmC() {
+    public function getUtmC()
+    {
         return $this->utmc;
     }
 
@@ -113,21 +128,24 @@ class Tracker {
      *
      * @param string $__utmc
      */
-    public function parseUtmC($__utmc) {
+    public function parseUtmC($__utmc)
+    {
         $this->setUtmC(new Utm\C($__utmc));
     }
 
     /**
      * @param Utm\V $utmv
      */
-    public function setUtmV(Utm\V $utmv) {
+    public function setUtmV(Utm\V $utmv)
+    {
         $this->utmv = $utmv;
     }
 
     /**
      * @return Utm\V $utmv
      */
-    public function getUtmV() {
+    public function getUtmV()
+    {
         return $this->utmv;
     }
 
@@ -136,21 +154,24 @@ class Tracker {
      *
      * @param string $__utmv
      */
-    public function parseUtmV($__utmv) {
+    public function parseUtmV($__utmv)
+    {
         $this->setUtmV(new Utm\V($__utmv));
     }
 
     /**
      * @param Utm\Z $utmz
      */
-    public function setUtmZ(Utm\Z $utmz) {
+    public function setUtmZ(Utm\Z $utmz)
+    {
         $this->utmz = $utmz;
     }
 
     /**
      * @return Utm\Z $utmz
      */
-    public function getUtmZ() {
+    public function getUtmZ()
+    {
         return $this->utmz;
     }
 
@@ -159,39 +180,47 @@ class Tracker {
      *
      * @param string $__utmz
      */
-    public function parseUtmZ($__utmz) {
+    public function parseUtmZ($__utmz)
+    {
         $this->setUtmZ(new Utm\Z($__utmz));
     }
 
     // BEGIN Accessor Functions for UTMs
-    private function _isValid($obj) {
+    private function _isValid($obj)
+    {
         return $obj && $obj->isValid();
     }
 
     /**
-     * The domain hash allows you to track multiple 
+     * The domain hash allows you to track multiple
      * subdomains with the same tracking code.
      *
      * @return string $domain_hash
      */
-    public function getDomainHash() {
-        return $this->_isValid($this->getUtmA()) ? $this->getUtmA()->getDomainHash() : null;
+    public function getDomainHash()
+    {
+        return $this->_isValid($this->getUtmA()) ? $this->getUtmA()
+            ->getDomainHash() : null;
     }
 
     /**
      * @return string Visitor ID assigned by the good folks at Google.
      */
-    public function getVisitorId() {
-        return $this->_isValid($this->getUtmA()) ? $this->getUtmA()->getVisitorId() : null;
+    public function getVisitorId()
+    {
+        return $this->_isValid($this->getUtmA()) ? $this->getUtmA()
+            ->getVisitorId() : null;
     }
 
     /**
      * DateTime object representing the initial visit.
-     *     
+     *
      * @return \DateTime $initial_visit.
      */
-    public function getInitialVisit() {
-        return $this->_isValid($this->getUtmA()) ? $this->getUtmA()->getInitialVisit() : null;
+    public function getInitialVisit()
+    {
+        return $this->_isValid($this->getUtmA()) ? $this->getUtmA()
+            ->getInitialVisit() : null;
     }
 
     /**
@@ -199,8 +228,10 @@ class Tracker {
      *
      * @return \DateTime $previous_visit.
      */
-    public function getPreviousVisit() {
-        return $this->_isValid($this->getUtmA()) ? $this->getUtmA()->getPreviousVisit() : null;
+    public function getPreviousVisit()
+    {
+        return $this->_isValid($this->getUtmA()) ? $this->getUtmA()
+            ->getPreviousVisit() : null;
     }
 
     /**
@@ -208,44 +239,54 @@ class Tracker {
      *
      * @return \DateTime $current_visit_start.
      */
-    public function getCurrentVisit() {
-        return $this->_isValid($this->getUtmA()) ? $this->getUtmA()->getCurrentVisit() : null;
+    public function getCurrentVisit()
+    {
+        return $this->_isValid($this->getUtmA()) ? $this->getUtmA()
+            ->getCurrentVisit() : null;
     }
 
     /**
      * The number of times that the user has left and returned.
      *
-     * This means the user either closed the browser or was 
+     * This means the user either closed the browser or was
      * inactive on this site for 30mins or more.
      *
      * @return int $session_count
      */
-    public function getSessionCount() {
-        return $this->_isValid($this->getUtmA()) ? $this->getUtmA()->getSessionCount() : null;
+    public function getSessionCount()
+    {
+        return $this->_isValid($this->getUtmA()) ? $this->getUtmA()
+            ->getSessionCount() : null;
     }
 
     /**
      * @return int $pages_viewed
      */
-    public function getPagesViewed() {
-        return $this->_isValid($this->getUtmB()) ? $this->getUtmB()->getPagesViewed() : null;
+    public function getPagesViewed()
+    {
+        return $this->_isValid($this->getUtmB()) ? $this->getUtmB()
+            ->getPagesViewed() : null;
     }
 
     /**
      * @return \DateTime $current_session_start
      */
-    public function getCurrentSessionStart() {
-        return $this->_isValid($this->getUtmB()) ? $this->getUtmB()->getCurrentSessionStart() : null;
+    public function getCurrentSessionStart()
+    {
+        return $this->_isValid($this->getUtmB()) ? $this->getUtmB()
+            ->getCurrentSessionStart() : null;
     }
 
     /**
-     * Returns an array<GoogleAnalytics\CampaignTracking\CustomVar> of custom 
+     * Returns an array<GoogleAnalytics\CampaignTracking\CustomVar> of custom
      * variables stored in the __utmv cookie.
      *
      * @return array $custom_vars
      */
-    public function getCustomVars() {
-        return $this->_isValid($this->getUtmV()) ? $this->getUtmV()->getCustomVars() : array();
+    public function getCustomVars()
+    {
+        return $this->_isValid($this->getUtmV()) ? $this->getUtmV()
+            ->getCustomVars() : array();
     }
 
     /**
@@ -253,8 +294,10 @@ class Tracker {
      *
      * @return \DateTime $datetime
      */
-    public function getDateTime() {
-        return $this->_isValid($this->getUtmZ()) ? $this->getUtmZ()->getDateTime() : null;
+    public function getDateTime()
+    {
+        return $this->_isValid($this->getUtmZ()) ? $this->getUtmZ()
+            ->getDateTime() : null;
     }
 
     /**
@@ -262,8 +305,10 @@ class Tracker {
      *
      * @return int $session_number
      */
-    public function getSessionNumber() {
-        return $this->_isValid($this->getUtmZ()) ? $this->getUtmZ()->getSessionNumber() : null;
+    public function getSessionNumber()
+    {
+        return $this->_isValid($this->getUtmZ()) ? $this->getUtmZ()
+            ->getSessionNumber() : null;
     }
 
     /**
@@ -271,36 +316,46 @@ class Tracker {
      *
      * @return int $campaign_number
      */
-    public function getCampaignNumber() {
-        return $this->_isValid($this->getUtmZ()) ? $this->getUtmZ()->getCampaignNumber() : null;
+    public function getCampaignNumber()
+    {
+        return $this->_isValid($this->getUtmZ()) ? $this->getUtmZ()
+            ->getCampaignNumber() : null;
     }
 
     /**
      * @return string $campaign_source
      */
-    public function getCampaignSource() {
-        return $this->_isValid($this->getUtmZ()) ? $this->getUtmZ()->getCampaignSource() : null;
+    public function getCampaignSource()
+    {
+        return $this->_isValid($this->getUtmZ()) ? $this->getUtmZ()
+            ->getCampaignSource() : null;
     }
 
     /**
      * @return string $campaign_medium
      */
-    public function getCampaignMedium() {
-        return $this->_isValid($this->getUtmZ()) ? $this->getUtmZ()->getCampaignMedium() : null;
+    public function getCampaignMedium()
+    {
+        return $this->_isValid($this->getUtmZ()) ? $this->getUtmZ()
+            ->getCampaignMedium() : null;
     }
 
     /**
      * @return string $campaign_name
      */
-    public function getCampaignName() {
-        return $this->_isValid($this->getUtmZ()) ? $this->getUtmZ()->getCampaignName() : null;
+    public function getCampaignName()
+    {
+        return $this->_isValid($this->getUtmZ()) ? $this->getUtmZ()
+            ->getCampaignName() : null;
     }
 
     /**
      *
      */
-    public function getCampaignContent() {
-        return $this->_isValid($this->getUtmZ()) ? $this->getUtmZ()->getCampaignContent() : null;
+    public function getCampaignContent()
+    {
+        return $this->_isValid($this->getUtmZ()) ? $this->getUtmZ()
+            ->getCampaignContent() : null;
     }
 
     /**
@@ -308,8 +363,10 @@ class Tracker {
      *
      * @return string $campaign_term
      */
-    public function getCampaignTerm() {
-        return $this->_isValid($this->getUtmZ()) ? $this->getUtmZ()->getCampaignTerm() : null;
+    public function getCampaignTerm()
+    {
+        return $this->_isValid($this->getUtmZ()) ? $this->getUtmZ()
+            ->getCampaignTerm() : null;
     }
 
     /**
@@ -317,7 +374,9 @@ class Tracker {
      *
      * @return array $keywords
      */
-    public function getKeywords() {
-        return $this->_isValid($this->getUtmZ()) ? $this->getUtmZ()->getKeywords() : array();
+    public function getKeywords()
+    {
+        return $this->_isValid($this->getUtmZ()) ? $this->getUtmZ()
+            ->getKeywords() : array();
     }
 }

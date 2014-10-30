@@ -1,28 +1,45 @@
 <?php
 
-class TrackerTest extends \PHPUnit_Framework_TestCase {
+class TrackerTest extends \PHPUnit_Framework_TestCase
+{
 
     /**
      * @dataProvider provider
      */
-    public function testParse($utm) {
+    public function testParse($utm)
+    {
         $tracker = new GoogleAnalytics\CampaignTracking\Tracker($utm);
 
         $this->assertEquals('123456789', $tracker->getDomainHash());
 
         $this->assertEquals('1891678824', $tracker->getVisitorId());
 
-        $this->assertEquals(1357877198, $tracker->getInitialVisit()->getTimestamp());
+        $this->assertEquals(
+            1357877198,
+            $tracker->getInitialVisit()->getTimestamp()
+        );
 
-        $this->assertEquals(1357877198, $tracker->getPreviousVisit()->getTimestamp());
+        $this->assertEquals(
+            1357877198,
+            $tracker->getPreviousVisit()->getTimestamp()
+        );
 
-        $this->assertEquals(1357877198, $tracker->getCurrentVisit()->getTimestamp());
+        $this->assertEquals(
+            1357877198,
+            $tracker->getCurrentVisit()->getTimestamp()
+        );
 
         $this->assertEquals(1, $tracker->getPagesViewed());
 
-        $this->assertEquals(1357877198, $tracker->getCurrentSessionStart()->getTimestamp());
+        $this->assertEquals(
+            1357877198,
+            $tracker->getCurrentSessionStart()->getTimestamp()
+        );
 
-        $this->assertEquals(1345235917, $tracker->getDateTime()->getTimestamp());
+        $this->assertEquals(
+            1345235917,
+            $tracker->getDateTime()->getTimestamp()
+        );
 
         $this->assertEquals(2, $tracker->getSessionNumber());
 
@@ -37,7 +54,8 @@ class TrackerTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(2, count($tracker->getKeywords()));
     }
 
-    public function provider() {
+    public function provider()
+    {
         return array(
             array(
                 array(

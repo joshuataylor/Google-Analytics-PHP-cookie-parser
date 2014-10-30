@@ -8,15 +8,16 @@ namespace GoogleAnalytics\CampaignTracking\Utm;
  * Description from Google(r):
  *
  * This cookie is typically written to the browser upon the first visit to your
- * site from that web browser. If the cookie has been deleted by the browser 
- * operator, and the browser subsequently visits your site, a new __utma cookie 
+ * site from that web browser. If the cookie has been deleted by the browser
+ * operator, and the browser subsequently visits your site, a new __utma cookie
  * is written with a different unique ID. In most cases, this cookie is used to
- * determine unique visitors to your site and it is updated with each page view. 
- * Additionally, this cookie is provided with a unique ID that Google Analytics 
+ * determine unique visitors to your site and it is updated with each page view.
+ * Additionally, this cookie is provided with a unique ID that Google Analytics
  * uses to ensure both the validity and accessibility of the cookie as an extra
  * security measure.
  */
-class A {
+class A
+{
 
     private $domain_hash;
 
@@ -32,25 +33,33 @@ class A {
 
     private $is_valid;
 
-    public function __construct($__utma = null) {
+    public function __construct($__utma = null)
+    {
         $this->is_valid = false;
         $this->parse($__utma);
     }
 
-    public function isValid() {
+    public function isValid()
+    {
         return $this->is_valid;
     }
 
-    public function parse($__utma) {
-        if($__utma == null)
+    public function parse($__utma)
+    {
+        if ($__utma == null) {
             return;
+        }
 
-        if(!$this->validate($__utma))
+        if (!$this->validate($__utma)) {
             return;
+        }
 
         $this->is_valid = true;
 
-        list($domain_hash, $visitor_id, $initial_visit, $previous_visit, $current_visit, $session_count) = preg_split('[\.]', $__utma);
+        list($domain_hash, $visitor_id, $initial_visit, $previous_visit, $current_visit, $session_count) = preg_split(
+            '[\.]',
+            $__utma
+        );
 
         $this->setDomainHash($domain_hash);
         $this->setVisitorId($visitor_id);
@@ -67,7 +76,8 @@ class A {
         $this->setSessionCount($session_count);
     }
 
-    private function validate($__utma) {
+    private function validate($__utma)
+    {
         return preg_match('/^\d+\.\d+\.\d+\.\d+\.\d+/', $__utma);
     }
 
@@ -77,7 +87,8 @@ class A {
      *
      * @param string $domain_hash
      */
-    public function setDomainHash($domain_hash) {
+    public function setDomainHash($domain_hash)
+    {
         $this->domain_hash = $domain_hash;
     }
 
@@ -87,30 +98,34 @@ class A {
      *
      * @return string $domain_hash
      */
-    public function getDomainHash() {
+    public function getDomainHash()
+    {
         return $this->domain_hash;
     }
 
     /**
      * @param string Visitor ID assigned by the good folks at Google.
      */
-    public function setVisitorId($visitor_id) {
+    public function setVisitorId($visitor_id)
+    {
         $this->visitor_id = $visitor_id;
     }
 
     /**
      * @return string Visitor ID assigned by the good folks at Google.
      */
-    public function getVisitorId() {
+    public function getVisitorId()
+    {
         return $this->visitor_id;
     }
 
     /**
      * DateTime object representing the initial visit.
      *
-     * @param \DateTime $initial_visit.
+     * @param \DateTime $initial_visit .
      */
-    public function setInitialVisit(\DateTime $initial_visit = null) {
+    public function setInitialVisit(\DateTime $initial_visit = null)
+    {
         $this->initial_visit = $initial_visit;
     }
 
@@ -119,7 +134,8 @@ class A {
      *
      * @return \DateTime $initial_visit.
      */
-    public function getInitialVisit() {
+    public function getInitialVisit()
+    {
         return $this->initial_visit;
     }
 
@@ -128,7 +144,8 @@ class A {
      *
      * @return \DateTime $previous_visit.
      */
-    public function setPreviousVisit(\DateTime $previous_visit = null) {
+    public function setPreviousVisit(\DateTime $previous_visit = null)
+    {
         $this->previous_visit = $previous_visit;
     }
 
@@ -137,16 +154,18 @@ class A {
      *
      * @return \DateTime $previous_visit.
      */
-    public function getPreviousVisit() {
+    public function getPreviousVisit()
+    {
         return $this->previous_visit;
     }
 
     /**
      * DateTime object representing the current visit start.
      *
-     * @param \DateTime $current_visit_start.
+     * @param \DateTime $current_visit_start .
      */
-    public function setCurrentVisit(\DateTime $current_visit = null) {
+    public function setCurrentVisit(\DateTime $current_visit = null)
+    {
         $this->current_visit = $current_visit;
     }
 
@@ -155,7 +174,8 @@ class A {
      *
      * @return \DateTime $current_visit_start.
      */
-    public function getCurrentVisit() {
+    public function getCurrentVisit()
+    {
         return $this->current_visit;
     }
 
@@ -167,7 +187,8 @@ class A {
      *
      * @param int $session_count
      */
-    public function setSessionCount($session_count) {
+    public function setSessionCount($session_count)
+    {
         $this->session_count = $session_count;
     }
 
@@ -179,7 +200,8 @@ class A {
      *
      * @return int $session_count
      */
-    public function getSessionCount() {
+    public function getSessionCount()
+    {
         return $this->session_count;
     }
 }

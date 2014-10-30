@@ -3,12 +3,13 @@
 namespace GoogleAnalytics\CampaignTracking;
 
 /**
- * The CustomVar class represents the custom variables stored in the __utmv 
+ * The CustomVar class represents the custom variables stored in the __utmv
  * cookie.
  *
  * This cookie is only dropped when $scope == 1.
  */
-class CustomVar {
+class CustomVar
+{
 
     /**
      *  The Slot Number.  An integer between 1 and 5.
@@ -35,47 +36,58 @@ class CustomVar {
     /**
      * @param array $v - Array containing parsed __utmv CustomVar information.
      */
-    public function __construct($v) {
-        if(is_array($v))
+    public function __construct($v)
+    {
+        if (is_array($v)) {
             $this->fromArray($v);
+        }
     }
 
-    public function fromArray(array $v_arr) {
+    public function fromArray(array $v_arr)
+    {
         $this->setSlotNumber($v_arr[0]);
         $this->setName($v_arr[1]);
         $this->setValue($v_arr[2]);
         $this->setScope($v_arr[3]);
     }
 
-    public function setSlotNumber($slot_number) {
+    public function setSlotNumber($slot_number)
+    {
         $this->slot_number = $slot_number;
     }
 
-    public function getSlotNumber() {
+    public function getSlotNumber()
+    {
         return $this->slot_number;
     }
 
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
     }
 
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function setValue($value) {
+    public function setValue($value)
+    {
         $this->value = $value;
     }
 
-    public function getValue() {
+    public function getValue()
+    {
         return $this->value;
     }
 
-    public function setScope($scope) {
+    public function setScope($scope)
+    {
         $this->scope = $scope;
     }
 
-    public function getScope() {
+    public function getScope()
+    {
         return $this->scope;
     }
 

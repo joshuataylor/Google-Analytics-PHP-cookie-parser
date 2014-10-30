@@ -1,7 +1,7 @@
 <phpunit bootstrap="autoload.php">
- <testsuites>
-  <testsuite name="GoogleAnalytics">
-   <directory>tests</directory>
-  </testsuite>
- </testsuites>
+    <testsuites>
+        <testsuite name="GoogleAnalytics">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>
